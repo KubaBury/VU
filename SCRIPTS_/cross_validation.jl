@@ -29,7 +29,6 @@ y_oh = Flux.onehotbatch((y.+1)[:],1:2)
 
 
 for i = 2:40
-
 	# create the model
 	model = BagModel(
     ArrayModel(Dense(166, i, Flux.tanh)),                      # model on the level of Flows
@@ -40,7 +39,7 @@ for i = 2:40
 	# define loss function
 	loss(x, y_oh) = Flux.logitcrossentropy(model(x).data, y_oh);
 
-	# the usual way of training
+	# the usual way of training, x consists of 92 bags 
 
 	opt = Flux.ADAM();
 	Flux.train!(loss, params(model), repeated((x[1:74], y_oh[:,1:74]), 1000), opt);
