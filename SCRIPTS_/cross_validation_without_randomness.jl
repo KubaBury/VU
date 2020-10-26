@@ -5,6 +5,9 @@ using Mill: reflectinmodel
 using Base.Iterators: repeated
 
 data = "D:/VU/SCRIPTS_/DataSets/Musk1";
+###BrownCreeper, CorelAfrican,CorelBeach, Elephant,Fox, Musk1, Musk2, Mutagenesis1(2)
+###Newsgroups1, Newsgroups2, Newsgroups3, Protein, Tiger, Web1(2,3,4), WinterWren
+
 
 function seqids2bags(bagids)
 	c = countmap(bagids)
@@ -27,23 +30,24 @@ y_oh = Flux.onehotbatch((y.+1)[:],1:2);
 
 ###### cross-validation - specify number of folds and dense layer ###### 
 K = 10; # number of folds
-W = 5; # specify dense layer in bagmodel, steps are length of 5 ;
+W = 1; # specify dense layer in bagmodel, steps are length of 5 ;
 
 b = length(y); #number of bags
 A = length(x.data.data[:,1]); # for dense layer
 n = floor(Int, length(y)/K); # number of bags in each fold
-L = zeros(W,K); # initial position of loss matrix
-train_set = zeros(Int, b-n, K);
-validation_set = zeros(Int, n, K);
+L2 = zeros(W,K); # initial position of loss matrix
+train_sets = zeros(Int, b-n, K);
+validation_sets = zeros(Int, n, K);
 
 opt = Flux.ADAM();
 
+### define random training and validation samples
 for j = 1:K
 	l1 = (1:b)
 	l2 = (1+n*(j-1):n+n*(j-1))
 	q = symdiff(l1,l2)
-	train_set[:,j] = q
-	validation_set[:,j] = l2
+	train_sets[:,j] = q
+	validation_sets[:,j] = l2
 end
 
 for i = 1:W
@@ -57,11 +61,11 @@ for i = 1:W
 		#loss function
 		loss(x, y_oh) = Flux.logitcrossentropy(model(x).data, y_oh);
 		#train
-		Flux.train!(loss, params(model), repeated((x[train_set[:,j]], y_oh[:,train_set[:,j]]), 1000), opt);
+		Flux.train!(loss, params(model), repeated((x[train_sets[:,j]], y_oh[:,train_sets[:,j]]), 1000), opt);
 		# calculate loss for each fold and dense layer
-		L[i,j] = loss(x[validation_set[:,j]], y_oh[:,validation_set[:,j]])
+		L2[i,j] = loss(x[validation_sets[:,j]], y_oh[:,validation_sets[:,j]])
 	end;
 end
 
-L
+L2
 
