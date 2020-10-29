@@ -55,12 +55,13 @@ for i = 1:W
     l2 = sample(101:200, 5, replace = false)
     a1 = sample(symdiff(1:100, l1), 8, replace = false)
     a2 = sample(symdiff(101:200, l1),1, replace = false)
-    b1 = symdiff((1:100), vcat(l1,a1))
-    b2 = symdiff((101:200), vcat(l2,a2))
+	b1 = symdiff((1:100), vcat(l1,a1))
+    b2 = sample(symdiff((101:200), vcat(l2,a2)), 12, replace = false)
     train_set = vcat(l1,l2)
     validation_set = vcat(a1,a2)
     test_set1 = vcat(b1,b2)
-    test_set2 = symdiff(shuffle(1:b),train_set)
+	test_set2 = symdiff(shuffle(1:b),train_set)
+	
 	    
 	#loss function
 	loss(x, y_oh) = Flux.logitcrossentropy(model(x).data, y_oh);
@@ -76,6 +77,6 @@ L_valid;
 L_test1;
 L_test2;
 
-p1 = plot(1:W, L_valid, xlabel = "dense layer", ylabel = "loss", label = "validation set", legend =:topleft, color =:red, linewidth = 3);
-p2 = plot!(p1, 1:W, L_test1, label = "test set (1)", color = :blue, linewidth = 3);
-p3 = plot!(p2, 1:W, L_test2, label = "test set (2)", color = :green, linewidth = 3)
+p1 = plot(1:W, L_valid, xlabel = "dense layer", ylabel = "loss", label = "validation set", legend =:topleft, color =:red, linewidth = 4 );
+p2 = plot!(p1, 1:W, L_test1, label = "test set (1)", color = :blue, linewidth = 4, line =:dash);
+p3 = plot!(p2, 1:W, L_test2, label = "test set (2)", color = :green, linewidth = 4 , line =:dot)
