@@ -1,0 +1,12 @@
+\babel@toc {american}{}
+\babel@toc {czech}{}
+\babel@toc {american}{}
+\babel@toc {czech}{}
+\babel@toc {american}{}
+\babel@toc {czech}{}
+\babel@toc {american}{}
+\contentsline {chapter}{Introduction}{5}%
+\contentsline {chapter}{\numberline {1}Multiple Instance Learning}{6}%
+\contentsline {section}{\numberline {1.1}Cross-Validation}{6}%
+\contentsline {section}{\numberline {1.2}Experiment}{7}%
+\contentsline {chapter}{Conclusion}{9}%
