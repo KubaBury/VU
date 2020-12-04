@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.16)  25 NOV 2020 15:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.16)  4 DEC 2020 16:21
 entering extended mode
 **./Research_Project_main.tex
 (Research_Project_main.tex
@@ -836,27 +836,51 @@ Overfull \hbox (5.47495pt too wide) in paragraph at lines 319--332
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<Images/TITLE/PCM01.pdf, id=46, 602.25pt x 401.5pt>
+File: Images/TITLE/PCM01.pdf Graphic file (type pdf)
+<use Images/TITLE/PCM01.pdf>
+Package pdftex.def Info: Images/TITLE/PCM01.pdf  used on input line 355.
+(pdftex.def)             Requested size: 227.62204pt x 151.75064pt.
+<Images/TITLE/PCM23.pdf, id=47, 602.25pt x 401.5pt>
+File: Images/TITLE/PCM23.pdf Graphic file (type pdf)
+<use Images/TITLE/PCM23.pdf>
+Package pdftex.def Info: Images/TITLE/PCM23.pdf  used on input line 357.
+(pdftex.def)             Requested size: 227.62204pt x 151.75064pt.
+<Images/TITLE/PCM45.pdf, id=48, 602.25pt x 401.5pt>
+File: Images/TITLE/PCM45.pdf Graphic file (type pdf)
+<use Images/TITLE/PCM45.pdf>
+Package pdftex.def Info: Images/TITLE/PCM45.pdf  used on input line 360.
+(pdftex.def)             Requested size: 227.62204pt x 151.75064pt.
+
+Overfull \hbox (5.47495pt too wide) in paragraph at lines 355--361
+ [][][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [7] [8 <./Images/TITLE/Fox.pdf> <./Images/TITLE/Elephant.pdf> <./Images/TITLE/T
 iger.pdf> <./Images/TITLE/Newsgroups1.pdf> <./Images/TITLE/Musk1.pdf> <./Images
-/TITLE/Newsgroups2.pdf>] [9
+/TITLE/Newsgroups2.pdf>] [9 <./Images/TITLE/PCM01.pdf> <./Images/TITLE/PCM23.pd
+f> <./Images/TITLE/PCM45.pdf>] [10
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+txtt on input line 3
-53.
+79.
  (D:\BP\miktex\tex/latex/txfonts\t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
 )
-[10
+[11
 
 ] (Research_Project_main.aux) ) 
 Here is how much of TeX's memory you used:
- 16416 strings out of 480896
- 300842 string characters out of 2915498
- 529752 words of memory out of 3000000
- 31931 multiletter control sequences out of 15000+200000
+ 16439 strings out of 480896
+ 301404 string characters out of 2915498
+ 531762 words of memory out of 3000000
+ 31951 multiletter control sequences out of 15000+200000
  596749 words of font info for 106 fonts, out of 3000000 for 9000
  1152 hyphenation exceptions out of 8191
- 60i,10n,60p,1554b,582s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,11n,60p,1554b,582s stack positions out of 5000i,500n,10000p,200000b,50000s
 {D:/BP/miktex/fonts/enc/dvips/base/8r.enc}<D:/BP
 /miktex/fonts/type1/public/txfonts/rtxmi.pfb><D:/BP/miktex/fonts/type1/public/t
 xfonts/rtxr.pfb><D:/BP/miktex/fonts/type1/public/txfonts/rtxsc.pfb><D:/BP/mikte
@@ -865,9 +889,9 @@ x/fonts/type1/public/txfonts/t1xtt.pfb><D:/BP/miktex/fonts/type1/public/txfonts
 /type1/public/txfonts/txsyb.pfb><D:/BP/miktex/fonts/type1/urw/times/utmb8a.pfb>
 <D:/BP/miktex/fonts/type1/urw/times/utmr8a.pfb><D:/BP/miktex/fonts/type1/urw/ti
 mes/utmr8a.pfb><D:/BP/miktex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Research_Project_main.pdf (10 pages, 287840 bytes).
+Output written on Research_Project_main.pdf (11 pages, 368119 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 112 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 68 words of extra memory for PDF output out of 10000 (max. 10000000)
 

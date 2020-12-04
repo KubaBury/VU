@@ -8,5 +8,6 @@
 \contentsline {chapter}{Introduction}{5}%
 \contentsline {chapter}{\numberline {1}Multiple Instance Learning}{6}%
 \contentsline {section}{\numberline {1.1}Cross-Validation}{6}%
-\contentsline {section}{\numberline {1.2}Experiment}{7}%
-\contentsline {chapter}{Conclusion}{9}%
+\contentsline {section}{\numberline {1.2}Experiment with mill datasets}{7}%
+\contentsline {section}{\numberline {1.3}Experiment with Point Cloud Mnist}{7}%
+\contentsline {chapter}{Conclusion}{10}%

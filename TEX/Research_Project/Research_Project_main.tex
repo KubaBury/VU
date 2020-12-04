@@ -309,7 +309,7 @@ prediction error is
 \end{equation}
 Typical choices of K are 5 or 10 and even case $K = N$, which is known as \textit{leave-one-out} cross-validation.
 
-\section{Experiment}
+\section{Experiment with mill datasets}
 Suppose we have two classes 0 and 1 (known as binary classification), which means that bags are labeled either as 0 or 1. What happens, if we have many more bags, for example, labeled as class 1? This situation is very common in anomaly detection, where known anomalies are quite rare. \\
 Let's assume train set is composed of 80\% bags labeled as 1 and 5\% bags labeled as 0, all randomly chosen. Test set is composed of 20\% bags labeled as 1 and 95\% labeled as 0, in other words it is complement of train set. Validation set is very similar to train set in terms of ratios, it contains 20\% bags labeled as 1 and 2\% bags labeled as 0. Train set is used to train our model, after that we evaluate loss function of the model with help of validation a test set, where number of dense layers is our hyperparameter. The purpose of this simulation is to find number of dense layer in which the loss is minimal and compare these 2 values. This experiment was performed 5 times then results were averaged, totally on 6 different datasets. 
 
@@ -329,12 +329,38 @@ Let's assume train set is composed of 80\% bags labeled as 1 and 5\% bags labele
 {{\includegraphics[width=8.0cm]{Images/TITLE/Musk1} }}%,
 \subfloat[]
 {{\includegraphics[width=8.0cm]{Images/TITLE/Newsgroups2} }}%
-    \caption{Evaluation of loss function with the use of validation and test set on different datasets.}%
+    \caption{Evaluation of loss function with the use of validation and test set on different MILL datasets.}%
     \label{CV}%
 \end{figure}
 As we can see in Figure \ref{CV}, the loss evaluated on different sets varies therefore it is likely to make mistakes when choosing our hyperparameter if we don't have enough input data.
 
 \pagestyle{headings}
+
+\section{Experiment with Point Cloud Mnist}
+We applied previous method on Point Cloud Mnist 2D (PCM) dataset. However, we needed to make a little adjustment to this dataset, because we perform the binary classification. Originally, PCM has tottaly 10 labels (labels are numbers 0-9), so we separated arbitrarily 8 of them to obtain just 2 classes. In addition, we randomly split data into bags. \\
+The advantage of PCM is that we can split the data into bags in many ways, e.g. 0\&1 , 2\&3, 5\&7,$\dots$ we can even take 0\&1 as first class and, for example, 2\&3 as a second class.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+labels & difference \\ \hline
+0\&1   & 0.81       \\ \hline
+2\&3   & 2.07       \\ \hline
+4\&5   & 2.05           \\ \hline
+\end{tabular}
+\end{table}
+\begin{figure}[h]
+\centering
+\subfloat[]
+{{\includegraphics[width=8.0cm]{Images/TITLE/PCM01} }}%
+\subfloat[]
+{{\includegraphics[width=8.0cm]{Images/TITLE/PCM23} }}%
+\
+ \subfloat[]
+{{\includegraphics[width=8.0cm]{Images/TITLE/PCM45} }}%,
+ \caption{Evaluation of loss function with the use of validation and test set on Point Cloud Mnist}%
+    \label{CVa}%
+\end{figure}
 
 \chapter*{Conclusion}
 
