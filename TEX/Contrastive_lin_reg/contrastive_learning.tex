@@ -1,0 +1,92 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[czech]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+%\usepackage[latin2]{inputenc} % pro iso8859-2
+%\usepackage[IL2]{fontenc}     % fonty vygenerované pro iso8859-2
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hlavička ZDE VYPLNIT 
+\newcommand{\autor}{Jakub BUREŠ}
+\newcommand{\cislomp}{1} % 1,2,3
+\newcommand{\zadani}{Homework1}
+\newcommand{\rocnik}{2020/2021}
+%% Konec hlavičky
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\usepackage{enumitem} 
+%\setlist{noitemsep, nolistsep}
+
+\usepackage{calc}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{6.5in}
+\setlength\oddsidemargin{0cm}
+\setlength\evensidemargin{(0cm}
+\setlength\topmargin{(\paperheight-\textheight-\headheight-\headsep-\footskip)/2 - 1in}
+
+%% matematika
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%% grafika
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing, patterns}
+\usetikzlibrary{arrows.meta,positioning, datavisualization}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Vysázení hlavičky - NEMĚNIT
+Zakladni rovnice kterou chceme naprogramovat.
+\begin{align}\label{q1q2final}
+&\min_{\theta}- \mathbb{E}_{p_{\mathrm{data}}(x,y)}\left[\alpha\log q_{\theta}\left(y|x\right)+ \left(1-\alpha\right)\log q_{\theta}\left(x|y\right) \right]  \\
+&\approx	\min_{\theta}- \mathbb{E}_{p_{\mathrm{data}}(x,y)}\left[\alpha\log \frac{\exp\left({f_\theta\left(x\right)[y]}\right)}{\sum_{y'}\exp\left({f_\theta\left(x\right)[y']}\right)}+ \left(1-\alpha\right)\log \frac{\exp\left({f_\theta\left(x\right)[y]}\right)}{\sum_{i=1}^K\exp\left({f_\theta\left(x_i\right)[y]}\right)} \right]
+\end{align}
+Dle znaceni v clanku, \textbf{Joint Energy models}  
+\begin{equation}
+	p(x,y) = \frac{\exp{\left(f_{\theta}(x)[y]\right)}}{Z(\theta)}
+\end{equation}
+kde 
+\begin{equation}
+f_{\theta}(x)[y] = -E_{\theta}(x,y) 
+\end{equation}
+a pro normalizacni konstantu plati 
+\begin{equation}
+	Z(\theta) = \sum_x\sum_y\exp{(-E_{\theta}(x,y))} 
+\end{equation}
+Jak to premostit na jednorozmernou linearni regresi?
+\begin{equation}
+p(x,y) =	p(y,x) = p(y\vert x)\cdot p(x)
+\end{equation}
+\begin{equation}
+	p(y\vert x) = \mathcal{N}\left(\theta_0 + \theta_1x, \sigma^2 \right)
+\end{equation}
+a $p(x)$ muzeme zvolit libovolne? Napriklad pro jednoduchost 
+\begin{equation}
+	p(x) = \mathcal{N}\left(0, \sigma^2\tau^2\right),
+\end{equation}
+pricemz uvazujeme $\sigma$ za zname a $\tau$ volime dle potreby. Z cehoz plyne ze 
+\begin{equation}
+p(x,y) = \mathcal{N}\left(0, \sigma^2\tau^2\right) \cdot \mathcal{N}\left(\theta_0 + \theta_1x, \sigma^2 \right)  =  \frac{1}{2\pi\sigma\tau}\exp\left(-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2}-\frac{x^2}{2\sigma^2\tau^2}\right)
+\end{equation}
+a tudiz
+\begin{equation}
+	f_{\theta}(x)[y] = -\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}.
+\end{equation}
+Nyni dosadme (10) do (2) a pouzijeme pravidla pro pocitani s logaritmy.
+\begin{align}\label{q1q2final}
+	&\min_{\theta}- \mathbb{E}_{p_{\mathrm{data}}(x,y)}\left[\alpha\log q_{\theta}\left(y|x\right)+ \left(1-\alpha\right)\log q_{\theta}\left(x|y\right) \right]  \\
+&\min_{\theta}- \mathbb{E}_{p_{\mathrm{data}}(x,y)}\left[\alpha\log \frac{\exp\left({f_\theta\left(x\right)[y]}\right)}{\sum_{y'}\exp\left({f_\theta\left(x\right)[y']}\right)}+ \left(1-\alpha\right)\log \frac{\exp\left({f_\theta\left(x\right)[y]}\right)}{\sum_{i=1}^K\exp\left({f_\theta\left(x_i\right)[y]}\right)} \right] =\\
+& \min_{\theta}- \mathbb{E}_{p_{\mathrm{data}}(x,y)}\left[\alpha\log \frac{\exp\left({-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}}\right)}{\sum_{y}\exp\left({-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}}\right)}+ \left(1-\alpha\right)\log \frac{\exp\left({-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}}\right)}{\sum_{x}\exp\left({-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}}\right)} \right] 
+\end{align}
+potom pro prvni $q$ faktor dostaneme 
+\begin{equation}
+\alpha\log q_{\theta}\left(y|x\right) = \alpha \left(\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} + \frac{x^2}{2\sigma^2\tau^2}\right) -\alpha\log \sum_{y}\exp\left({-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}}\right)\\ 
+\end{equation}
+a pro druhy
+\begin{equation}
+\left(1-\alpha\right)\log q_{\theta}\left(x|y\right) = (1-\alpha) \left(\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} + \frac{x^2}{2\sigma^2\tau^2}\right) - (1-\alpha)\log \sum_{x}\exp\left({-\frac{(y-\theta_0-\theta_1x)^2}{2\sigma^2} - \frac{x^2}{2\sigma^2\tau^2}}\right)
+\end{equation}
+\end{document}
