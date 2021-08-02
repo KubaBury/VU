@@ -10,7 +10,9 @@ using LinearAlgebra
 τ = 1.0
 α = 0.5
 x = rand(Normal(1,σ^2*τ^2), 100)
-y = 2 .*x .+ 1 .+ rand(Normal(0,σ^2*τ^2), 100)
+θ0_true = [1.0]
+θ1_true = [5.0]
+y = θ1_true .*x .+ θ0_true .+ rand(Normal(0,σ^2*τ^2), 100)
 
 #model
 f(θ0,θ1,x,y) =  exp.( .-(((y'.-θ0.-θ1.*x).^2) ./(2σ^2)) .- ((x.^2)./(2σ^2τ^2)) )
@@ -36,4 +38,6 @@ loss(x,y,θ0,θ1) = -mean(q1(θ0,θ1,x,y) + q2(θ0,θ1,x,y))
 data = Iterators.repeated((x,y),10000)
 Flux.train!((x,y)->loss(x,y,θ0,θ1), [θ0,θ1],data, ADAM())
 
-θ0, θ1
+#compare
+println("θ0_true: $θ0_true, \n θ0: $θ0, \n difference: $(θ0_true.-θ0)")
+println("θ1_true: $θ1_true, \n θ1: $θ1, \n difference: $(θ1_true.-θ1)")
