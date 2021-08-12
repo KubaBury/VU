@@ -24,7 +24,7 @@ end
 data = "D:/VU/SCRIPTS/DataSets/Musk1"
 (x,y) = csv2mill(data)
 y_oh = Flux.onehotbatch((y.+1)[:],1:2)
-α=0.5
+
 
 # create the model
 model = BagModel(
@@ -46,18 +46,23 @@ model = BagModel(
 #contrastive learning a.k.a. equation 2.14. Parameter α is set at the begining of the sript.
 
 function hybridloss(ŷ, y, α; agg=mean)
-	agg(.-sum(y .* (α.*logsoftmax(ŷ; dims = 1) .+ (1-α).*logsoftmax(ŷ; dims = 2)); dims = 1)   )
+	α * agg(.-sum(y .* logsoftmax(ŷ; dims = 1); dims=1)) + (1-α)*agg(.-sum(y.*logsoftmax(ŷ; dims = 2); dims = 1))   
 end
 
 
 #loss(x, y_oh) = Flux.logitcrossentropy(model(x).data, y_oh)
-loss1(x,y_oh) = hybridloss(model(x).data, y_oh, α)
+
 	
 
 # the usual way of training
 evalcb = throttle(() -> @show(loss1(x, y_oh)), 1)
 opt = Flux.ADAM()
-@epochs 10 Flux.train!(loss1, Flux.params(model), repeated((x, y_oh), 1000), opt, cb=evalcb)
+
+α=0.5
+loss1(x,y_oh) = hybridloss(model(x).data, y_oh, α)
+@epochs 20  Flux.train!(loss1, Flux.params(model), repeated((x, y_oh), 1000), opt, cb=evalcb)
+
+
 
 # calculate the error on the training set (no testing set right now)
 mean(mapslices(argmax, model(x).data, dims=1)' .!= y.+1)
