@@ -1,0 +1,227 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Bayes:
+\end_layout
+
+\begin_layout Standard
+Bayesian prediction
+\begin_inset Formula 
+\[
+p(y'|x',X,Y)=\int_{\theta}p(y'|x',\theta)p(\theta|X,Y)d\theta
+\]
+
+\end_inset
+
+When distribution is not available, we have to approximate
+\begin_inset Formula 
+\begin{align*}
+p(y'|x',X,Y) & =\int_{\theta}p(y'|x',\theta)\delta(\theta-\hat{\theta})d\theta=p(y'|x',\hat{\theta})
+\end{align*}
+
+\end_inset
+
+causing an error.
+ In typical MAP, this error is known as overfitting.
+\begin_inset Formula 
+\[
+\hat{y}'=f(\hat{\theta},x'),\,\,\,E'=|y'-\hat{y}'|
+\]
+
+\end_inset
+
+For increasing model complexity: 
+\begin_inset Formula $E_{y-\hat{y}}->0$
+\end_inset
+
+, 
+\begin_inset Formula $E_{y'-\hat{y}'}->\infty$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Remedies:
+\end_layout
+
+\begin_layout Enumerate
+CV = method for minimizing prediction error by choosing model complexity.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+train multiple models and choose one
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Hybrid DG
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+train a single more complex model
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Aim of this work is 
+\end_layout
+
+\begin_layout Standard
+to investigate if HDGM can replace CV for training NN without overfitting.
+ Specifically for MIL classifiers.
+\end_layout
+
+\begin_layout Section
+Contrastive:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+y & =f(x) & x & =f^{-1}(y)\\
+p(y|x) & =N(f(x),\sigma) & p(x|y) & =N(f^{-1}(y),\sigma)\\
+OLS: & f(x)=a+bx+cx^{2}, & ? & ?\\
+ & p(a,b,c)=...\\
+rTLS: & f(x)=a+bx+cx^{2},\,\,\,\alpha &  & f^{-1}(y)=a_{y}(a,b,c)+b_{y}(a,b,c)y+c_{y}(a,b,c)y^{2},\,\,\,\,1-\alpha\\
+ & p &  & !!!\\
+\\
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+p(x,y) & =p_{1}(x,y|\theta_{1})^{\alpha}p_{2}(x,y|\theta_{2})^{1-\alpha}\\
+p_{1}(x,y) & =p(y|x,\theta_{1})p_{0}(x)\\
+p_{2}(x,y) & =p(x|y,\theta_{1})p_{0}(y)\\
+\\
+\text{Using\,Bayes}\\
+p(x|y) & =\frac{p(x,y)}{p(y)}\approx\frac{p(x,y)}{\sum_{x}p(x,y)}\,\,\,\,\,\text{option \#1}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Loglikelihood
+\begin_inset Formula 
+\[
+\log p(x,y)=\alpha\log p_{1}(x,y)+(1-\alpha)\log p_{2}(x,y)
+\]
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+OLS:
+\begin_inset Formula 
+\begin{align*}
+p(y|x) & =\mathcal{N}(f(x),\sigma)\\
+p(x) & =\mathcal{N}(0,\tau)\\
+\\
+p(x|y) & =q(x|y)=a_{y}+b_{y}y+c_{y}y^{2},
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+MIL:
+\begin_inset Formula 
+\begin{align*}
+y & =Be(\sigma(f(x,\theta)))\\
+\log p(y|x) & =y\log(\sigma(f(x,\theta)))+(1-y)\log(1-\sigma(f(x,\theta)))
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
